@@ -16,8 +16,24 @@ public struct Box: Identifiable, Hashable {
     }
 }
 
-public extension Box: CustomStringConvertible {
-    var description: String {
+extension Box: CustomStringConvertible {
+    public var description: String {
         string
+    }
+}
+
+public extension Box {
+    func isInSameColumnAs(_ box: Box) -> Bool {
+        rect.minX < box.rect.maxX
+        && rect.maxX > box.rect.minX
+    }
+    
+    func isInSameRowAs(_ box: Box) -> Bool {
+        rect.minY < box.rect.maxY
+        && rect.maxY > box.rect.minY
+    }
+    
+    var string: String {
+        observation.topCandidates(1).first?.string ?? ""
     }
 }
