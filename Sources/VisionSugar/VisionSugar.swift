@@ -4,7 +4,7 @@ import SwiftUISugar
 
 public struct VisionSugar {
 
-    public func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
+    public static func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
         guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
             completion(nil)
             return
