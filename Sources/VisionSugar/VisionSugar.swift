@@ -12,23 +12,13 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
-        guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
-            completion(nil)
-            return
-        }
-        
-        let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-        let request = VNRecognizeTextRequest { request, error in
-            guard let observations = request.results as? [VNRecognizedTextObservation] else {
+    public static func boxes(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([Box]?) -> Void)) {
+        recognizeTexts(in: image) { observations in
+            guard let observations = observations else {
+                completion(nil)
                 return
             }
-            completion(observations)
-        }
-        do {
-            try requestHandler.perform([request])
-        } catch {
-            print("Unable to perform the requests: \(error).")
+            completion(boxes(of: observations, for: image, inContentSize: contentSize))
         }
     }
     
@@ -53,5 +43,25 @@ public struct VisionSugar {
         let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
 
         return Box(observation: observation, rect: rect)
+    }
+
+    public static func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
+        guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
+            completion(nil)
+            return
+        }
+        
+        let requestHandler = VNImageRequestHandler(cgImage: cgImage)
+        let request = VNRecognizeTextRequest { request, error in
+            guard let observations = request.results as? [VNRecognizedTextObservation] else {
+                return
+            }
+            completion(observations)
+        }
+        do {
+            try requestHandler.perform([request])
+        } catch {
+            print("Unable to perform the requests: \(error).")
+        }
     }
 }
