@@ -15,3 +15,9 @@ public struct Box: Identifiable, Hashable {
         hasher.combine(id)
     }
 }
+
+public extension Box: CustomStringConvertible {
+    var description: String {
+        string
+    }
+}
