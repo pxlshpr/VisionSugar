@@ -1,6 +1,7 @@
 import UIKit
 import Vision
 import SwiftUISugar
+import TabularData
 
 extension CGRect {
     func rectForSize(_ size: CGSize) -> CGRect {
@@ -63,5 +64,21 @@ public struct VisionSugar {
         } catch {
             print("Unable to perform the requests: \(error).")
         }
+    }
+}
+
+public extension Array where Element == Box {
+    
+    var dataFrame: DataFrame {
+        let ids = map { $0.id }
+        let rects = map { $0.rect }
+        let strings = map { $0.string }
+        
+        let dataFrame: DataFrame = [
+            "id": ids,
+            "rect": rects,
+            "string": strings
+        ]
+        return dataFrame
     }
 }
