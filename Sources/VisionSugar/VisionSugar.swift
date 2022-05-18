@@ -2,6 +2,14 @@ import UIKit
 import Vision
 import SwiftUISugar
 
+extension CGRect {
+    func rectForSize(_ size: CGSize) -> CGRect {
+        var rect = VNImageRectForNormalizedRect(self, Int(size.width), Int(size.height) )
+        rect.origin.y = size.height - rect.origin.y - rect.size.height
+        return rect
+    }
+}
+
 public struct VisionSugar {
 
     public static func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
@@ -32,5 +40,19 @@ public struct VisionSugar {
 //            boxes.append(box)
 //        }
 //        return boxes
+    }
+    
+    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> Box? {
+        let width: CGFloat, height: CGFloat
+        if image.size.widthToHeightRatio > contentSize.widthToHeightRatio {
+            width = contentSize.width
+            height = image.size.height * width / image.size.width
+        } else {
+            height = contentSize.height
+            width = image.size.width * height / image.size.height
+        }
+        let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
+
+        return Box(observation: observation, rect: rect)
     }
 }
