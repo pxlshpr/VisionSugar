@@ -32,17 +32,16 @@ public struct VisionSugar {
         }
     }
     
-    public static func textBoxes(from image: UIImage, in frame: CGRect) -> [Box] {
+    public static func textBoxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [Box] {
         var boxes: [Box] = []
+        for observation in observations {
+            let box = VisionSugar.box(of: observation, for: image, inContentSize: contentSize)
+            boxes.append(box)
+        }
         return boxes
-//        for observation in observations[index] {
-//            guard let box = box(of: observation, for: images[index]) else { continue }
-//            boxes.append(box)
-//        }
-//        return boxes
     }
     
-    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> Box? {
+    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> Box {
         let width: CGFloat, height: CGFloat
         if image.size.widthToHeightRatio > contentSize.widthToHeightRatio {
             width = contentSize.width
