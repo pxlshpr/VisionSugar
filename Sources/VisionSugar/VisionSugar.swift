@@ -32,7 +32,7 @@ public struct VisionSugar {
         }
     }
     
-    public static func textBoxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [Box] {
+    public static func boxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [Box] {
         var boxes: [Box] = []
         for observation in observations {
             let box = VisionSugar.box(of: observation, for: image, inContentSize: contentSize)
