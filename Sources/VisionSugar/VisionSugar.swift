@@ -67,18 +67,3 @@ public struct VisionSugar {
     }
 }
 
-public extension Array where Element == RecognizedText {
-    
-    var dataFrame: DataFrame {
-        let ids = map { $0.id }
-        let rectStrings = map { NSCoder.string(for: $0.rect) }
-        let strings = map { $0.string }
-        
-        let dataFrame: DataFrame = [
-            "id": ids,
-            "rectString": rectStrings,
-            "string": strings
-        ]
-        return dataFrame
-    }
-}

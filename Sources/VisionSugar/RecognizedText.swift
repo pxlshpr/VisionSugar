@@ -10,7 +10,13 @@ public struct RecognizedText: Identifiable, Hashable {
         self.string = observation.topCandidates(1).first?.string ?? ""
         self.rect = rect
     }
-    
+
+    public init(id: UUID, rectString: String, string: String) {
+        self.id = id
+        self.string = string
+        self.rect = NSCoder.cgRect(for: rectString)
+    }
+
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
