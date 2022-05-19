@@ -71,12 +71,12 @@ public extension Array where Element == Box {
     
     var dataFrame: DataFrame {
         let ids = map { $0.id }
-        let rects = map { $0.rect }
+        let rectStrings = map { NSCoder.string(for: $0.rect) }
         let strings = map { $0.string }
         
         let dataFrame: DataFrame = [
             "id": ids,
-            "rect": rects,
+            "rectString": rectStrings,
             "string": strings
         ]
         return dataFrame
