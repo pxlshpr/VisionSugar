@@ -26,11 +26,11 @@ public extension DataFrame {
         for row in rows {
             guard let id = row["id"] as? String,
                   let uuid = UUID(uuidString: id),
-                  let rectString = row["rectString"] as? String,
-                  let string = row["string"] as? String else {
+                  let rectString = row["rectString"] as? String else {
                 return nil
             }
             
+            let string = row["string"] as? String ?? ""
             recognizedTexts.append(RecognizedText(id: uuid, rectString: rectString, string: string))
         }
         return recognizedTexts
