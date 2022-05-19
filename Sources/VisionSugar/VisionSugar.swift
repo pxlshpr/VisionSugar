@@ -13,7 +13,7 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func boxes(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([Box]?) -> Void)) {
+    public static func boxes(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
         recognizeTexts(in: image) { observations in
             guard let observations = observations else {
                 completion(nil)
@@ -23,8 +23,8 @@ public struct VisionSugar {
         }
     }
     
-    public static func boxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [Box] {
-        var boxes: [Box] = []
+    public static func boxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [RecognizedText] {
+        var boxes: [RecognizedText] = []
         for observation in observations {
             let box = VisionSugar.box(of: observation, for: image, inContentSize: contentSize)
             boxes.append(box)
@@ -32,7 +32,7 @@ public struct VisionSugar {
         return boxes
     }
     
-    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> Box {
+    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> RecognizedText {
         let width: CGFloat, height: CGFloat
         if image.size.widthToHeightRatio > contentSize.widthToHeightRatio {
             width = contentSize.width
@@ -43,7 +43,7 @@ public struct VisionSugar {
         }
         let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
 
-        return Box(observation: observation, rect: rect)
+        return RecognizedText(observation: observation, rect: rect)
     }
 
     public static func recognizeTexts(in image: UIImage, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
@@ -67,7 +67,7 @@ public struct VisionSugar {
     }
 }
 
-public extension Array where Element == Box {
+public extension Array where Element == RecognizedText {
     
     var dataFrame: DataFrame {
         let ids = map { $0.id }
