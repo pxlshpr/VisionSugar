@@ -24,13 +24,14 @@ public extension DataFrame {
     var recognizedTexts: [RecognizedText]? {
         var recognizedTexts: [RecognizedText] = []
         for row in rows {
-            guard let id = row["id"] as? UUID,
+            guard let id = row["id"] as? String,
+                  let uuid = UUID(uuidString: id),
                   let rectString = row["rectString"] as? String,
                   let string = row["string"] as? String else {
                 return nil
             }
             
-            recognizedTexts.append(RecognizedText(id: id, rectString: rectString, string: string))
+            recognizedTexts.append(RecognizedText(id: uuid, rectString: rectString, string: string))
         }
         return recognizedTexts
     }
