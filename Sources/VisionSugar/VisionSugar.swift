@@ -13,26 +13,26 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func boxes(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
+    public static func recognizedTexts(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
         recognizeTexts(in: image) { observations in
             guard let observations = observations else {
                 completion(nil)
                 return
             }
-            completion(boxes(of: observations, for: image, inContentSize: contentSize))
+            completion(recognizedTexts(of: observations, for: image, inContentSize: contentSize))
         }
     }
     
-    public static func boxes(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [RecognizedText] {
-        var boxes: [RecognizedText] = []
+    public static func recognizedTexts(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [RecognizedText] {
+        var recognizedTexts: [RecognizedText] = []
         for observation in observations {
-            let box = VisionSugar.box(of: observation, for: image, inContentSize: contentSize)
-            boxes.append(box)
+            let recognizedText = VisionSugar.recognizedText(of: observation, for: image, inContentSize: contentSize)
+            recognizedTexts.append(recognizedText)
         }
-        return boxes
+        return recognizedTexts
     }
     
-    public static func box(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> RecognizedText {
+    public static func recognizedText(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> RecognizedText {
         let width: CGFloat, height: CGFloat
         if image.size.widthToHeightRatio > contentSize.widthToHeightRatio {
             width = contentSize.width
