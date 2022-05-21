@@ -52,10 +52,14 @@ public extension DataFrame {
             
             var candidates: [String] = []
             for index in 1...5 {
-                guard let candidate = row["candidate\(index)"] as? String else {
+                guard let string = row["candidate\(index)"] as? String else {
                     break
                 }
-                candidates.append(candidate)
+                if string == "\"nil\"" {
+                    candidates.append("nil")
+                } else {
+                    candidates.append(string)
+                }
             }
             
             let recognizedText = RecognizedText(id: uuid, rectString: rectString, candidates: candidates)
