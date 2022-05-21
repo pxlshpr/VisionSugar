@@ -7,7 +7,12 @@ public extension Array where Element == RecognizedText {
         func candidatesAtIndex(_ index: Int) -> [String?] {
             self.map {
                 if index < $0.candidates.count {
-                    return $0.candidates[index]
+                    let string = $0.candidates[index]
+                    if string == "nil" {
+                        return "\"nil\""
+                    } else {
+                        return $0.candidates[index]
+                    }
                 } else {
                     return nil
                 }
