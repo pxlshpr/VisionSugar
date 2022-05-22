@@ -46,7 +46,7 @@ public struct VisionSugar {
         return RecognizedText(observation: observation, rect: rect)
     }
 
-    public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
+    public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
         guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
             completion(nil)
             return
@@ -59,7 +59,10 @@ public struct VisionSugar {
             }
             completion(observations)
         }
-//        request.recognitionLanguages = ["en_GB", "de_DE", "fr_FR", "it_IT", "de_CH", "fr_BE", "fr_CA", "fr_CH", "it_CH"]
+        
+        if let recognitionLanguages = recognitionLanguages {
+            request.recognitionLanguages = recognitionLanguages
+        }
 //        request.recognitionLevel = .accurate
         request.usesLanguageCorrection = useLanguageCorrection
         do {
