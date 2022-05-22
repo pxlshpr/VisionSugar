@@ -14,7 +14,7 @@ extension CGRect {
 public struct VisionSugar {
 
     public static func recognizedTexts(for image: UIImage, useLanguageCorrection: Bool = true, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
-        recognizeTexts(in: image) { observations in
+        recognizeTexts(in: image, useLanguageCorrection: useLanguageCorrection) { observations in
             guard let observations = observations else {
                 completion(nil)
                 return
