@@ -59,6 +59,7 @@ public struct VisionSugar {
             }
             completion(observations)
         }
+        request.recognitionLanguages = ["en_GB", "de_DE"]
 //        request.recognitionLevel = .accurate
 //        request.usesLanguageCorrection = false
         do {
