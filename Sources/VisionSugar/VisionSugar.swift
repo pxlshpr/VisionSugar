@@ -13,8 +13,8 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func recognizedTexts(for image: UIImage, useLanguageCorrection: Bool = true, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
-        recognizeTexts(in: image, useLanguageCorrection: useLanguageCorrection) { observations in
+    public static func recognizedTexts(for image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, recognitionLevel: VNRequestTextRecognitionLevel = .accurate, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
+        recognizeTexts(in: image, useLanguageCorrection: useLanguageCorrection, recognitionLanguages: recognitionLanguages, recognitionLevel: recognitionLevel) { observations in
             guard let observations = observations else {
                 completion(nil)
                 return
@@ -46,7 +46,7 @@ public struct VisionSugar {
         return RecognizedText(observation: observation, rect: rect)
     }
 
-    public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
+    public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, recognitionLevel: VNRequestTextRecognitionLevel = .accurate, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
         guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
             completion(nil)
             return
@@ -63,7 +63,7 @@ public struct VisionSugar {
         if let recognitionLanguages = recognitionLanguages {
             request.recognitionLanguages = recognitionLanguages
         }
-//        request.recognitionLevel = .accurate
+        request.recognitionLevel = recognitionLevel
         request.usesLanguageCorrection = useLanguageCorrection
         do {
             try requestHandler.perform([request])
