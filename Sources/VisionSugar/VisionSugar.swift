@@ -59,8 +59,8 @@ public struct VisionSugar {
             }
             completion(observations)
         }
-        request.recognitionLevel = .accurate
-        request.usesLanguageCorrection = false
+//        request.recognitionLevel = .accurate
+//        request.usesLanguageCorrection = false
         do {
             try requestHandler.perform([request])
         } catch {
