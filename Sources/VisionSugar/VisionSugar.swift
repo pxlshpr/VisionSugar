@@ -13,7 +13,7 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func recognizedTexts(for image: UIImage, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
+    public static func recognizedTexts(for image: UIImage, useLanguageCorrection: Bool = true, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
         recognizeTexts(in: image) { observations in
             guard let observations = observations else {
                 completion(nil)
