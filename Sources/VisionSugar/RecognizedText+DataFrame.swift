@@ -52,7 +52,12 @@ public extension DataFrame {
                 return nil
             }
             
-            let boundingBoxString = row["boundingBoxString"] as? String
+            let boundingBoxString: String?
+            if columns.contains(where: { $0.name == "boundingBoxString" }) {
+                boundingBoxString = row["boundingBoxString"] as? String
+            } else {
+                boundingBoxString = nil
+            }
             
             var candidates: [String] = []
             for index in 1...5 {
