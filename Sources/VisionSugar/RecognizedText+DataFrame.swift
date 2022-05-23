@@ -21,6 +21,7 @@ public extension Array where Element == RecognizedText {
         
         let ids = map { $0.id }
         let rectStrings = map { NSCoder.string(for: $0.rect) }
+        let boundingBoxSrings = map { NSCoder.string(for: $0.boundingBox) }
 //        let strings = map { $0.candidates }
         
         let dataFrame: DataFrame = [
@@ -46,7 +47,9 @@ public extension DataFrame {
         for row in rows {
             guard let id = row["id"] as? String,
                   let uuid = UUID(uuidString: id),
-                  let rectString = row["rectString"] as? String else {
+                  let rectString = row["rectString"] as? String,
+                  let boundingBoxString = row["boundingBoxString"] as? String
+            else {
                 return nil
             }
             
@@ -62,7 +65,7 @@ public extension DataFrame {
                 }
             }
             
-            let recognizedText = RecognizedText(id: uuid, rectString: rectString, candidates: candidates)
+            let recognizedText = RecognizedText(id: uuid, rectString: rectString, boundingBoxString: boundingBoxString, candidates: candidates)
             recognizedTexts.append(recognizedText)
         }
         return recognizedTexts

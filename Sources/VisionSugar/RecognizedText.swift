@@ -3,9 +3,10 @@ import Vision
 public struct RecognizedText: Identifiable, Hashable {
     public var id: UUID
     public var rect: CGRect
+    public var boundingBox: CGRect
     public var candidates: [String]
     
-    public init(observation: VNRecognizedTextObservation, rect: CGRect) {
+    public init(observation: VNRecognizedTextObservation, rect: CGRect, boundingBox: CGRect) {
         self.id = observation.uuid
         
         /// Save up to the first 5 candidates with a confidence of at least 0.4
@@ -16,12 +17,14 @@ public struct RecognizedText: Identifiable, Hashable {
         .prefix(5))
         
         self.rect = rect
+        self.boundingBox = boundingBox
     }
 
-    public init(id: UUID, rectString: String, candidates: [String]) {
+    public init(id: UUID, rectString: String, boundingBoxString: String, candidates: [String]) {
         self.id = id
         self.candidates = candidates
         self.rect = NSCoder.cgRect(for: rectString)
+        self.boundingBox = NSCoder.cgRect(for: boundingBoxString)
     }
 
     public func hash(into hasher: inout Hasher) {

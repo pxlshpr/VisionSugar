@@ -43,7 +43,7 @@ public struct VisionSugar {
         }
         let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
 
-        return RecognizedText(observation: observation, rect: rect)
+        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
     }
 
     public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, recognitionLevel: VNRequestTextRecognitionLevel = .accurate, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
