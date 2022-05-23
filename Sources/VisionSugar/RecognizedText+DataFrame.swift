@@ -47,11 +47,12 @@ public extension DataFrame {
         for row in rows {
             guard let id = row["id"] as? String,
                   let uuid = UUID(uuidString: id),
-                  let rectString = row["rectString"] as? String,
-                  let boundingBoxString = row["boundingBoxString"] as? String
+                  let rectString = row["rectString"] as? String
             else {
                 return nil
             }
+            
+            let boundingBoxString = row["boundingBoxString"] as? String
             
             var candidates: [String] = []
             for index in 1...5 {

@@ -20,11 +20,15 @@ public struct RecognizedText: Identifiable, Hashable {
         self.boundingBox = boundingBox
     }
 
-    public init(id: UUID, rectString: String, boundingBoxString: String, candidates: [String]) {
+    public init(id: UUID, rectString: String, boundingBoxString: String?, candidates: [String]) {
         self.id = id
         self.candidates = candidates
         self.rect = NSCoder.cgRect(for: rectString)
-        self.boundingBox = NSCoder.cgRect(for: boundingBoxString)
+        if let boundingBoxString = boundingBoxString {
+            self.boundingBox = NSCoder.cgRect(for: boundingBoxString)
+        } else {
+            self.boundingBox = .zero
+        }
     }
 
     public func hash(into hasher: inout Hasher) {
