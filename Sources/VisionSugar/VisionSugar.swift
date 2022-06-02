@@ -65,6 +65,7 @@ public struct VisionSugar {
         }
         request.recognitionLevel = recognitionLevel
         request.usesLanguageCorrection = useLanguageCorrection
+        request.customWords = ["0"]
         do {
             try requestHandler.perform([request])
         } catch {
