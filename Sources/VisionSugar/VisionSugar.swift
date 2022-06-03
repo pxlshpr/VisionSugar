@@ -46,7 +46,14 @@ public struct VisionSugar {
         return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
     }
 
-    public static func recognizeTexts(in image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, recognitionLevel: VNRequestTextRecognitionLevel = .accurate, completion: @escaping (([VNRecognizedTextObservation]?) -> Void)) {
+    public static func recognizeTexts(
+        in image: UIImage,
+        useLanguageCorrection: Bool = true,
+        recognitionLanguages: [String]? = nil,
+        recognitionLevel: VNRequestTextRecognitionLevel = .accurate,
+        customWords: [String] = [],
+        completion: @escaping (([VNRecognizedTextObservation]?) -> Void))
+    {
         guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
             completion(nil)
             return
@@ -65,7 +72,7 @@ public struct VisionSugar {
         }
         request.recognitionLevel = recognitionLevel
         request.usesLanguageCorrection = useLanguageCorrection
-        
+        request.customWords = customWords
         do {
             try requestHandler.perform([request])
         } catch {
