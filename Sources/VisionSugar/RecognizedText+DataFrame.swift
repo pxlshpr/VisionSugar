@@ -27,6 +27,7 @@ public extension Array where Element == RecognizedText {
         let dataFrame: DataFrame = [
             "id": ids,
             "rectString": rectStrings,
+            "boundingBoxString": boundingBoxSrings,
             "candidate1": candidatesAtIndex(0),
             "candidate2": candidatesAtIndex(1),
             "candidate3": candidatesAtIndex(2),
