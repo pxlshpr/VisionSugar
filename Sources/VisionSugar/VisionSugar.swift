@@ -54,11 +54,7 @@ public struct VisionSugar {
         customWords: [String] = [],
         completion: @escaping (([VNRecognizedTextObservation]?) -> Void))
     {
-//        guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
-//            completion(nil)
-//            return
-//        }
-        guard let cgImage = image.cgImage else {
+        guard let cgImage = image.fixOrientationIfNeeded().cgImage else {
             completion(nil)
             return
         }
