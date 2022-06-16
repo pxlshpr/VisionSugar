@@ -11,7 +11,7 @@ public struct RecognizedText: Identifiable, Hashable {
         
         /// Save up to the first 5 candidates with a confidence of at least 0.4
         self.candidates = Array(observation.topCandidates(20).filter {
-            $0.confidence >= 0.4
+            $0.confidence >= 0.3
         }
         .map { $0.string }
         .prefix(5))
