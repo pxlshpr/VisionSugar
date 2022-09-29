@@ -1,6 +1,6 @@
 import Vision
 
-public struct RecognizedText: Identifiable, Hashable {
+public struct RecognizedText: Identifiable, Hashable, Codable {
     public var id: UUID
     public var rect: CGRect
     public var boundingBox: CGRect
