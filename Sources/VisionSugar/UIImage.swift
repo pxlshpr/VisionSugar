@@ -27,6 +27,21 @@ public struct RecognizedTextObservationSet {
 
 extension UIImage {
 
+    public func recognizedTextSet(for config: RecognizeTextConfiguration, inContentSize contentSize: CGSize) async throws -> RecognizedTextSet {
+        var textSets: [RecognizedTextSet] = []
+        try recognizeTextObservations(configs: [config]) { observationSet in
+            guard let observationSet else {
+                return
+            }
+            let textSet = RecognizedTextSet(
+                config: observationSet.config,
+                texts: self.recognizedTexts(from: observationSet.observations, inContentSize: contentSize)
+            )
+            textSets.append(textSet)
+        }
+        return textSets.first ?? RecognizedTextSet(config: config, texts: [])
+    }
+
     public func recognizeTextObservations(configs: [RecognizeTextConfiguration], completion: @escaping ((RecognizedTextObservationSet?) -> Void)) throws {
         guard let cgImage = fixOrientationIfNeeded().cgImage else {
             completion(nil)
@@ -57,21 +72,6 @@ extension UIImage {
         try requestHandler.perform(requests)
     }
     
-    public func recognizedTextSets(for configs: [RecognizeTextConfiguration], inContentSize contentSize: CGSize) async throws -> [RecognizedTextSet] {
-        var textSets: [RecognizedTextSet] = []
-        try recognizeTextObservations(configs: configs) { observationSet in
-            guard let observationSet else {
-                return
-            }
-            let textSet = RecognizedTextSet(
-                config: observationSet.config,
-                texts: self.recognizedTexts(from: observationSet.observations, inContentSize: contentSize)
-            )
-            textSets.append(textSet)
-        }
-        return textSets
-    }
-
     public func recognizedTexts(from observations: [VNRecognizedTextObservation], inContentSize contentSize: CGSize) -> [RecognizedText] {
         observations.map { observation in
             recognizedText(from: observation, inContentSize: contentSize)
