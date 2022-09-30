@@ -14,9 +14,9 @@ public struct RecognizeTextConfiguration {
         self.customWords = customWords
     }
     
-    static let accurate = RecognizeTextConfiguration(level: .accurate, languageCorrection: true)
-    static let accurateWithoutLanguageCorrection = RecognizeTextConfiguration(level: .accurate, languageCorrection: false)
-    static let fast = RecognizeTextConfiguration(level: .fast)
+    public static let accurate = RecognizeTextConfiguration(level: .accurate, languageCorrection: true)
+    public static let accurateWithoutLanguageCorrection = RecognizeTextConfiguration(level: .accurate, languageCorrection: false)
+    public static let fast = RecognizeTextConfiguration(level: .fast)
 }
 
 public struct RecognizedTextSet {
