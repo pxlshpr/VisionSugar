@@ -3,20 +3,20 @@ import Vision
 import SwiftUISugar
 
 public struct RecognizeTextConfiguration {
-    let level: VNRequestTextRecognitionLevel = .accurate
-    let languageCorrection: Bool = true
-    let languages: [String]? = nil
-    let customWords: [String] = []
+    public let level: VNRequestTextRecognitionLevel = .accurate
+    public let languageCorrection: Bool = true
+    public let languages: [String]? = nil
+    public let customWords: [String] = []
 }
 
 public struct RecognizedTextSet {
-    let config: RecognizeTextConfiguration
-    let texts: [RecognizedText]
+    public let config: RecognizeTextConfiguration
+    public let texts: [RecognizedText]
 }
 
 public struct RecognizedTextObservationSet {
-    let config: RecognizeTextConfiguration
-    let observations: [VNRecognizedTextObservation]
+    public let config: RecognizeTextConfiguration
+    public let observations: [VNRecognizedTextObservation]
 }
 
 extension UIImage {
