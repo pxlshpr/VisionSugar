@@ -3,10 +3,16 @@ import Vision
 import SwiftUISugar
 
 public struct RecognizeTextConfiguration {
-    public let level: VNRequestTextRecognitionLevel = .accurate
-    public let languageCorrection: Bool = true
-    public let languages: [String]? = nil
-    public let customWords: [String] = []
+    public let level: VNRequestTextRecognitionLevel
+    public let languageCorrection: Bool
+    public let languages: [String]?
+    public let customWords: [String]
+    public init(level: VNRequestTextRecognitionLevel = .accurate, languageCorrection: Bool = true, languages: [String]? = nil, customWords: [String] = []) {
+        self.level = level
+        self.languageCorrection = languageCorrection
+        self.languages = languages
+        self.customWords = customWords
+    }
 }
 
 public struct RecognizedTextSet {
