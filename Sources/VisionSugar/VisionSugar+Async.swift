@@ -57,7 +57,7 @@ extension UIImage {
         try requestHandler.perform(requests)
     }
     
-    public func recognizedTexts(configs: [RecognizeTextConfiguration], inContentSize contentSize: CGSize) async throws -> [RecognizedTextSet] {
+    public func recognizedTextSets(for configs: [RecognizeTextConfiguration], inContentSize contentSize: CGSize) async throws -> [RecognizedTextSet] {
         var textSets: [RecognizedTextSet] = []
         try recognizeTextObservations(configs: configs) { observationSet in
             guard let observationSet else {
