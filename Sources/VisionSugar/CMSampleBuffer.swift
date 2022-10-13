@@ -20,7 +20,7 @@ extension CMSampleBuffer {
     }
 
     public func recognizeTextObservations(configs: [RecognizeTextConfiguration], completion: @escaping ((RecognizedTextObservationSet?) -> Void)) throws {
-        let requestHandler = VNImageRequestHandler(cmSampleBuffer: self)
+        let requestHandler = VNImageRequestHandler(cmSampleBuffer: self, orientation: .right)
         
         var requests: [VNRecognizeTextRequest] = []
         for config in configs {
