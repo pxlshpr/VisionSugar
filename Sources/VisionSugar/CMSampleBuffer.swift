@@ -4,9 +4,9 @@ import SwiftUISugar
 
 extension CMSampleBuffer {
     
-    public func contourObservations(completion: @escaping ([VNContoursObservation]) -> ()) throws {
-        let request = VNDetectContoursRequest { (request, error) in
-            guard let observations = request.results as? [VNContoursObservation] else {
+    public func rectangleObservations(completion: @escaping ([VNRectangleObservation]) -> ()) throws {
+        let request = VNDetectRectanglesRequest { (request, error) in
+            guard let observations = request.results as? [VNRectangleObservation] else {
                 return
             }
             completion(observations)
