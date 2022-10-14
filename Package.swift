@@ -27,6 +27,8 @@ let package = Package(
             ]),
         .testTarget(
             name: "VisionSugarTests",
-            dependencies: ["VisionSugar"]),
+            dependencies: ["VisionSugar"],
+            resources: [.process("SampleImages")]
+        ),
     ]
 )
