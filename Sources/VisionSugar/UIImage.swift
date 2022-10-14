@@ -4,60 +4,20 @@ import SwiftUISugar
 
 extension UIImage {
 
-    public func recognizedTextSet(
-        for config: RecognizeTextConfiguration = .accurate,
-        includeBarcodes: Bool = false
+    public func recognizedTextSet(for config: RecognizeTextConfiguration = .accurate, includeBarcodes: Bool = false
     ) async throws -> RecognizedTextSet {
-        if includeBarcodes {
-            return try await config.recognizedTextSet(textAndBarcodesHandler: recognizeTextAndBarcodeObservations)
-        } else {
-            return try await config.recognizedTextSet(textHandler: recognizeTextObservations)
+        guard let imageRequestHandler else {
+            return RecognizedTextSet(config: config)
         }
+        return try await imageRequestHandler.recognizedTextSet(for: config, includeBarcodes: includeBarcodes)
     }
     
-    //MARK: - Private
-
-    private func recognizeTextAndBarcodeObservations(
-        config: RecognizeTextConfiguration,
-        completion: @escaping TextAndBarcodesHandler
-    ) throws {
+    var imageRequestHandler: VNImageRequestHandler? {
         guard let fixedCGImage else {
-            completion(nil, [])
-            return
+            return nil
         }
-        
-        var textObservationSet: RecognizedTextObservationSet? = nil
-        var barcodes: [RecognizedBarcode] = []
-        
-        let requestHandler = VNImageRequestHandler(cgImage: fixedCGImage)
-        
-        let textRequest = config.recognizeTextRequest { _textObservationSet in
-            textObservationSet = _textObservationSet
-        }
-        let barcodesRequest = VNDetectBarcodesRequest.request { _barcodes in
-            barcodes = _barcodes
-        }
-        
-        try requestHandler.perform([textRequest, barcodesRequest])
-        
-        completion(textObservationSet, barcodes)
+        return VNImageRequestHandler(cgImage: fixedCGImage)
     }
-
-    private func recognizeTextObservations(
-        config: RecognizeTextConfiguration,
-        completion: @escaping TextObservationSetHandler
-    ) throws {
-        guard let fixedCGImage else {
-            completion(nil)
-            return
-        }
-        
-        let requestHandler = VNImageRequestHandler(cgImage: fixedCGImage)
-        let request = config.recognizeTextRequest(completion: completion)
-        try requestHandler.perform([request])
-    }
-    
-    //MARK: Helpers
     
     private var fixedCGImage: CGImage? {
         fixOrientationIfNeeded().cgImage
