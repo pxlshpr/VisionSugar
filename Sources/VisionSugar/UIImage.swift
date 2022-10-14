@@ -4,6 +4,17 @@ import SwiftUISugar
 
 extension UIImage {
     
+    public func contourObservations(completion: @escaping ([VNContoursObservation]) -> ()) throws {
+        guard let imageRequestHandler else { return }
+        let request = VNDetectContoursRequest { (request, error) in
+            guard let observations = request.results as? [VNContoursObservation] else {
+                return
+            }
+            completion(observations)
+        }
+        try imageRequestHandler.perform([request])
+    }
+    
     public func recognizedTextSet(for config: RecognizeTextConfiguration = .accurate, includeBarcodes: Bool = false
     ) async throws -> RecognizedTextSet {
         guard let imageRequestHandler else {

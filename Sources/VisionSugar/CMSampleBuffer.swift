@@ -38,6 +38,7 @@ extension VNImageRequestHandler {
         let textRequest = config.recognizeTextRequest { _textObservationSet in
             textObservationSet = _textObservationSet
         }
+        
         let barcodesRequest = VNDetectBarcodesRequest.request { _barcodes in
             barcodes = _barcodes
         }
