@@ -32,7 +32,6 @@ extension VNDetectBarcodesRequest {
                 return
             }
 
-            print("🍄 Barcdoes request returned with \(observations.count) observations")
             var barcodes: [RecognizedBarcode] = []
             for observation in observations {
                 guard let string = observation.payloadStringValue,
