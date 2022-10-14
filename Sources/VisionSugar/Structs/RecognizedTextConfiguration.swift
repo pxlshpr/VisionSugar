@@ -27,14 +27,25 @@ public struct RecognizeTextConfiguration {
 extension RecognizeTextConfiguration {
     
     public func recognizedTextSet(
-        recognizeTextObservationsHandler: @escaping TextObservationsHandler
-    ) async throws -> RecognizedTextSet {
-        var textSets: [RecognizedTextSet] = []
-        try recognizeTextObservationsHandler(self) { observationSet in
-            guard let observationSet else { return }
-            textSets.append(observationSet.textSet)
+        textHandler: TextObservationsHandler? = nil,
+        textAndBarcodesHandler: TextAndBarcodesHandlerHandler? = nil
+    ) async throws -> RecognizedTextSet
+    {
+        var textSet: RecognizedTextSet? = nil
+        if let textHandler {
+            try textHandler(self) { observationSet in
+                guard let observationSet else { return }
+                textSet = observationSet.textSet
+            }
+        } else if let textAndBarcodesHandler {
+            try textAndBarcodesHandler(self) { observationSet, barcodes in
+                guard let observationSet else { return }
+                var newTextSet = observationSet.textSet
+                newTextSet.barcodes = barcodes
+                textSet = newTextSet
+            }
         }
-        return textSets.first ?? RecognizedTextSet(config: self)
+        return textSet ?? RecognizedTextSet(config: self)
     }
     
     func recognizeTextRequest(completion: @escaping TextObservationSetHandler) -> VNRecognizeTextRequest

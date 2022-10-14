@@ -5,7 +5,7 @@ import SwiftUISugar
 extension CMSampleBuffer {
     
     public func recognizedTextSet(for config: RecognizeTextConfiguration) async throws -> RecognizedTextSet {
-        try await config.recognizedTextSet(recognizeTextObservationsHandler: recognizeTextObservations)
+        try await config.recognizedTextSet(textHandler: recognizeTextObservations)
     }
     public func recognizeTextObservations(
         config: RecognizeTextConfiguration,

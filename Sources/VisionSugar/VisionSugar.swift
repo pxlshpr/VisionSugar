@@ -3,8 +3,13 @@ import Vision
 import SwiftUISugar
 import TabularData
 
+public typealias BarcodesHandler = (([RecognizedBarcode]) -> Void)
+public typealias BarcodesHandlerHandler = ((BarcodesHandler) -> Void)
 public typealias TextObservationSetHandler = ((RecognizedTextObservationSet?) -> Void)
 public typealias TextObservationsHandler = ((RecognizeTextConfiguration, @escaping TextObservationSetHandler) throws -> ())
+
+public typealias TextAndBarcodesHandler = ((RecognizedTextObservationSet?, [RecognizedBarcode]) -> Void)
+public typealias TextAndBarcodesHandlerHandler = ((RecognizeTextConfiguration, @escaping TextAndBarcodesHandler) throws -> ())
 
 //TODO: Remove these
 //public struct VisionSugar {

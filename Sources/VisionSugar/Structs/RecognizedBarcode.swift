@@ -9,6 +9,13 @@ public struct RecognizedBarcode: Identifiable, Hashable, Codable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    init(observation: VNBarcodeObservation) {
+        self.id = UUID()
+        self.boundingBox = observation.boundingBox
+        self.string = observation.payloadStringValue ?? ""
+        self.symbology = observation.symbology
+    }
 }
 
 extension VNBarcodeSymbology: Codable {
