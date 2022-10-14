@@ -3,7 +3,7 @@ import XCTest
 
 final class VisionSugarTests: XCTestCase {
     func test() async throws {
-        guard let path = Bundle.module.path(forResource: "multiple", ofType: "png"),
+        guard let path = Bundle.module.path(forResource: "oats", ofType: "jpg"),
               let image = UIImage(contentsOfFile: path)
         else {
             XCTFail("Couldn't get image")
