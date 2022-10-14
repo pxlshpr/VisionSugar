@@ -4,6 +4,16 @@ import SwiftUISugar
 
 extension CMSampleBuffer {
     
+    public func contourObservations(completion: @escaping ([VNContoursObservation]) -> ()) throws {
+        let request = VNDetectContoursRequest { (request, error) in
+            guard let observations = request.results as? [VNContoursObservation] else {
+                return
+            }
+            completion(observations)
+        }
+        try imageRequestHandler.perform([request])
+    }
+
     public func recognizedTextSet(for config: RecognizeTextConfiguration = .accurate, includeBarcodes: Bool = false
     ) async throws -> RecognizedTextSet {
         return try await imageRequestHandler.recognizedTextSet(for: config, includeBarcodes: includeBarcodes)
