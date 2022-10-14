@@ -13,8 +13,20 @@ extension CGRect {
 
 public struct VisionSugar {
 
-    public static func recognizedTexts(for image: UIImage, useLanguageCorrection: Bool = true, recognitionLanguages: [String]? = nil, recognitionLevel: VNRequestTextRecognitionLevel = .accurate, inContentSize contentSize: CGSize, completion: @escaping (([RecognizedText]?) -> Void)) {
-        recognizeTexts(in: image, useLanguageCorrection: useLanguageCorrection, recognitionLanguages: recognitionLanguages, recognitionLevel: recognitionLevel) { observations in
+    public static func recognizedTexts(
+        for image: UIImage,
+        useLanguageCorrection: Bool = true,
+        recognitionLanguages: [String]? = nil,
+        recognitionLevel: VNRequestTextRecognitionLevel = .accurate,
+        inContentSize contentSize: CGSize,
+        completion: @escaping (([RecognizedText]?) -> Void)
+    ) {
+        recognizeTexts(
+            in: image,
+            useLanguageCorrection: useLanguageCorrection,
+            recognitionLanguages: recognitionLanguages,
+            recognitionLevel: recognitionLevel)
+        { observations in
             guard let observations = observations else {
                 completion(nil)
                 return
@@ -23,7 +35,11 @@ public struct VisionSugar {
         }
     }
     
-    public static func recognizedTexts(of observations: [VNRecognizedTextObservation], for image: UIImage, inContentSize contentSize: CGSize) -> [RecognizedText] {
+    public static func recognizedTexts(
+        of observations: [VNRecognizedTextObservation],
+        for image: UIImage,
+        inContentSize contentSize: CGSize
+    ) -> [RecognizedText] {
         var recognizedTexts: [RecognizedText] = []
         for observation in observations {
             let recognizedText = VisionSugar.recognizedText(of: observation, for: image, inContentSize: contentSize)
@@ -32,7 +48,11 @@ public struct VisionSugar {
         return recognizedTexts
     }
     
-    public static func recognizedText(of observation: VNRecognizedTextObservation, for image: UIImage, inContentSize contentSize: CGSize) -> RecognizedText {
+    public static func recognizedText(
+        of observation: VNRecognizedTextObservation,
+        for image: UIImage,
+        inContentSize contentSize: CGSize
+    ) -> RecognizedText {
         let width: CGFloat, height: CGFloat
         if image.size.widthToHeightRatio > contentSize.widthToHeightRatio {
             width = contentSize.width
