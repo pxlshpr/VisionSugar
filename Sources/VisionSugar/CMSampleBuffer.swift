@@ -110,19 +110,13 @@ extension CMSampleBuffer {
     }
     
     public func recognizedText(from observation: VNRecognizedTextObservation, inContentSize contentSize: CGSize) -> RecognizedText {
-        //        let width: CGFloat, height: CGFloat
-        //        if size.widthToHeightRatio > contentSize.widthToHeightRatio {
-        //            width = contentSize.width
-        //            height = size.height * width / size.width
-        //        } else {
-        //            height = contentSize.height
-        //            width = size.width * height / size.height
-        //        }
-        //        let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
-        //        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
         
-        let rect = observation.boundingBox.rectForSize(UIScreen.main.bounds.size)
-        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
+        return RecognizedText(observation: observation,
+                              rect: observation.boundingBox,
+                              boundingBox: observation.boundingBox
+        )
+//        let rect = observation.boundingBox.rectForSize(UIScreen.main.bounds.size)
+//        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
     }
 }
 

@@ -89,17 +89,22 @@ extension UIImage {
         }
     }
 
-    public func recognizedText(from observation: VNRecognizedTextObservation, inContentSize contentSize: CGSize) -> RecognizedText {
-        let width: CGFloat, height: CGFloat
-        if size.widthToHeightRatio > contentSize.widthToHeightRatio {
-            width = contentSize.width
-            height = size.height * width / size.width
-        } else {
-            height = contentSize.height
-            width = size.width * height / size.height
-        }
-        let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
-        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
+    public func recognizedText(from observation: VNRecognizedTextObservation, inContentSize contentSize: CGSize) -> RecognizedText
+    {
+        return RecognizedText(observation: observation,
+                              rect: observation.boundingBox,
+                              boundingBox: observation.boundingBox)
+
+//        let width: CGFloat, height: CGFloat
+//        if size.widthToHeightRatio > contentSize.widthToHeightRatio {
+//            width = contentSize.width
+//            height = size.height * width / size.width
+//        } else {
+//            height = contentSize.height
+//            width = size.width * height / size.height
+//        }
+//        let rect = observation.boundingBox.rectForSize(CGSize(width: width, height: height))
+//        return RecognizedText(observation: observation, rect: rect, boundingBox: observation.boundingBox)
     }
 }
 
