@@ -15,7 +15,7 @@ let package = Package(
             targets: ["VisionSugar"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pxlshpr/SwiftUISugar", from: "0.0.131"),
+        .package(url: "https://github.com/pxlshpr/SwiftUISugar", from: "0.0.186"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
