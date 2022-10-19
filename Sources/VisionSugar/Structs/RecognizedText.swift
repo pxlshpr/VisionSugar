@@ -31,6 +31,13 @@ public struct RecognizedText: Identifiable, Hashable, Codable {
         }
     }
 
+    public init(recognizedBarcode: RecognizedBarcode) {
+        self.id = recognizedBarcode.id
+        self.rect = recognizedBarcode.boundingBox.rectForSize(recognizedBarcode.boundingBox.size)
+        self.boundingBox = recognizedBarcode.boundingBox
+        self.candidates = []
+    }
+    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
