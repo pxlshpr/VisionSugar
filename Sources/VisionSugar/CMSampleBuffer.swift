@@ -16,7 +16,11 @@ extension CMSampleBuffer {
 
     public func recognizedTextSet(for config: RecognizeTextConfiguration = .accurate, includeBarcodes: Bool = false
     ) async throws -> RecognizedTextSet {
-        return try await imageRequestHandler.recognizedTextSet(for: config, includeBarcodes: includeBarcodes)
+        try await imageRequestHandler.recognizedTextSet(for: config, includeBarcodes: includeBarcodes)
+    }
+    
+    public func recognizedBarcodes() async throws -> [RecognizedBarcode] {
+        try await imageRequestHandler.recognizedBarcodes()
     }
     
     var imageRequestHandler: VNImageRequestHandler {
