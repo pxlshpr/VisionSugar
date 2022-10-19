@@ -35,9 +35,28 @@ extension VNImageRequestHandler {
             return try await config.recognizedTextSet(textHandler: recognizeTextObservations)
         }
     }
-    
+
+    public func recognizedBarcodes() async throws -> [RecognizedBarcode] {
+        var barcodes: [RecognizedBarcode] = []
+        try recognizeBarcodeObservations {
+            barcodes = $0
+        }
+        return barcodes
+    }
+
     //MARK: - Private
 
+    private func recognizeBarcodeObservations(
+        completion: @escaping BarcodesHandler
+    ) throws {
+        var barcodes: [RecognizedBarcode] = []
+        let barcodesRequest = VNDetectBarcodesRequest.request { _barcodes in
+            barcodes = _barcodes
+        }
+        try perform([barcodesRequest])
+        completion(barcodes)
+    }
+    
     private func recognizeTextAndBarcodeObservations(
         config: RecognizeTextConfiguration,
         completion: @escaping TextAndBarcodesHandler
