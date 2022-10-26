@@ -1,4 +1,4 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "VisionSugar",
     platforms: [
-        .iOS(.v15)
+        .iOS(.v16)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -15,7 +15,7 @@ let package = Package(
             targets: ["VisionSugar"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pxlshpr/SwiftUISugar", from: "0.0.186"),
+        .package(url: "https://github.com/pxlshpr/SwiftUISugar", from: "0.0.196"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
