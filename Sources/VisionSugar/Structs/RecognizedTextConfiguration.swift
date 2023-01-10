@@ -1,6 +1,8 @@
 import Vision
 
-public struct RecognizeTextConfiguration {
+extension VNRequestTextRecognitionLevel: Codable { }
+
+public struct RecognizeTextConfiguration: Codable {
     
     public let level: VNRequestTextRecognitionLevel
     public let languageCorrection: Bool
