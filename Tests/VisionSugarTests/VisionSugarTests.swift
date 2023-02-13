@@ -3,7 +3,7 @@ import XCTest
 
 final class VisionSugarTests: XCTestCase {
     func test() async throws {
-        guard let path = Bundle.module.path(forResource: "oats", ofType: "jpg"),
+        guard let path = Bundle.module.path(forResource: "blue-tuna-can", ofType: "jpg"),
               let image = UIImage(contentsOfFile: path)
         else {
             XCTFail("Couldn't get image")
@@ -15,6 +15,9 @@ final class VisionSugarTests: XCTestCase {
         
         print("🍄 Took: \(CFAbsoluteTimeGetCurrent()-startTime)s")
         print("🍄 We have: \(textSet.texts.count) texts")
+        for text in textSet.texts {
+            print("     ⚪️ \(text.string)")
+        }
         print("🍄 We have: \(textSet.barcodes.count) barcodes")
     }
 
