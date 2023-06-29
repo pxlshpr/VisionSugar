@@ -1,6 +1,5 @@
 import UIKit
 import Vision
-import SwiftUISugar
 import TabularData
 
 public typealias BarcodesHandler = (([RecognizedBarcode]) -> Void)

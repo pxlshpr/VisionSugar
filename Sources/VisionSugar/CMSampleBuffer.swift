@@ -1,6 +1,5 @@
 import UIKit
 import Vision
-import SwiftUISugar
 
 extension CMSampleBuffer {
     
